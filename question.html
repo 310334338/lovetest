@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>題目頁</title>
+</head>
+<body>
+<h1>測驗題目</h1>
+<form method="POST" action="/question">
+  {% for qid, q in questions.items() %}
+    <div style="margin-bottom:20px;">
+      <p>{{ q.text }}</p>
+      {% if q.type == 'choice' %}
+        {% for key, option in q.options.items() %}
+          <label>
+            <input type="radio" name="{{ qid }}" value="{{ key }}"> {{ option }}
+          </label><br>
+        {% endfor %}
+      {% elif q.type == 'short_answer' %}
+        <textarea name="{{ qid }}" rows="3" cols="50"></textarea>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <button type="submit">送出測驗</button>
+</form>
+
+
+</body>
+</html>
